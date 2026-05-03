@@ -68,7 +68,7 @@ async function renderDemo(demo: Demo): Promise<void> {
     };
   } catch (err) {
     host.innerHTML = `<pre style="padding:24px;color:#bf616a;white-space:pre-wrap;">${escapeHtml(
-      err instanceof Error ? err.stack ?? err.message : String(err),
+      err instanceof Error ? (err.stack ?? err.message) : String(err),
     )}</pre>`;
     running = {
       cleanup: () => {

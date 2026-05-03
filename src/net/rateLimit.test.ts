@@ -59,7 +59,10 @@ describe('RateLimiter', () => {
 
   it('getClientIP extracts X-Forwarded-For first', () => {
     expect(
-      getClientIP({ 'x-forwarded-for': '203.0.113.1, 198.51.100.10' }, { remoteAddress: '127.0.0.1' }),
+      getClientIP(
+        { 'x-forwarded-for': '203.0.113.1, 198.51.100.10' },
+        { remoteAddress: '127.0.0.1' },
+      ),
     ).toBe('203.0.113.1');
     expect(getClientIP(undefined, { remoteAddress: '127.0.0.1' })).toBe('127.0.0.1');
     expect(getClientIP({})).toBe('unknown');

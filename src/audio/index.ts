@@ -1,1 +1,6 @@
-export { AudioManager, type AudioManagerOptions, type PlayOptions, type PlayHandle } from './AudioManager.js';
+export {
+  AudioManager,
+  type AudioManagerOptions,
+  type PlayOptions,
+  type PlayHandle,
+} from './AudioManager.js';

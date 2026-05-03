@@ -84,10 +84,10 @@ Quarry staking add-on, and the dev-tools panel.
 
 The engine ships with a minimal core. Some subsystems require opt-in installs:
 
-| Feature                           | Install                                                                               |
-| --------------------------------- | ------------------------------------------------------------------------------------- |
-| Redis-backed storage              | `npm install ioredis`                                                                 |
-| Quarry staking provider           | `npm install @quarryprotocol/quarry-sdk @saberhq/solana-contrib @saberhq/token-utils` |
+| Feature                 | Install                                                                               |
+| ----------------------- | ------------------------------------------------------------------------------------- |
+| Redis-backed storage    | `npm install ioredis`                                                                 |
+| Quarry staking provider | `npm install @quarryprotocol/quarry-sdk @saberhq/solana-contrib @saberhq/token-utils` |
 
 See [`docs/chain.md`](docs/chain.md) and [`docs/networking.md`](docs/networking.md) for
 configuration.

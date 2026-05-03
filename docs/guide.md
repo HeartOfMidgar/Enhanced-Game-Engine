@@ -20,7 +20,7 @@ import { Engine } from 'game-engine-enhanced';
 
 const engine = new Engine({
   fixedTimestep: 1 / 60, // physics tick rate
-  maxFps: 0,             // 0 = uncapped
+  maxFps: 0, // 0 = uncapped
 });
 
 engine.start();
@@ -91,9 +91,9 @@ Map raw devices to game-level actions:
 import { ActionMap } from 'game-engine-enhanced/input';
 
 const actions = new ActionMap({
-  jump:  ['Key:Space', 'Pad:0:0'],
-  move:  { bindings: ['Axis:0:0:+', 'Axis:0:0:-'], threshold: 0.2 },
-  fire:  ['Mouse:0', 'Pad:0:7'],
+  jump: ['Key:Space', 'Pad:0:0'],
+  move: { bindings: ['Axis:0:0:+', 'Axis:0:0:-'], threshold: 0.2 },
+  fire: ['Mouse:0', 'Pad:0:7'],
 });
 
 // In a system: actions.update(inputManager.snapshot()); if (actions.pressed('jump')) ...
@@ -108,9 +108,9 @@ const assets = new AssetManager();
 assets.events.on('progress', (p) => console.log(`${(p.ratio * 100).toFixed(0)}%`));
 
 await assets.loadAll([
-  { id: 'hero',  url: '/models/hero.glb',  kind: 'gltf'    },
+  { id: 'hero', url: '/models/hero.glb', kind: 'gltf' },
   { id: 'brick', url: '/textures/brick.png', kind: 'texture' },
-  { id: 'theme', url: '/audio/theme.ogg',    kind: 'audio'   },
+  { id: 'theme', url: '/audio/theme.ogg', kind: 'audio' },
 ]);
 ```
 
@@ -118,8 +118,12 @@ await assets.loadAll([
 
 ```ts
 const scene = engine.scenes.create('level-1');
-scene.onEnter = () => { /* spawn entities */ };
-scene.onExit  = () => { /* cleanup */ };
+scene.onEnter = () => {
+  /* spawn entities */
+};
+scene.onExit = () => {
+  /* cleanup */
+};
 
 await engine.scenes.activate('level-1');
 ```

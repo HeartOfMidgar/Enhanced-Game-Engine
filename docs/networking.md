@@ -59,13 +59,13 @@ await gateway.start();
 A room is a logical collection of connections. `Room` exposes:
 
 ```ts
-room.id
-room.size
-room.join(connection)
-room.leave(connection)
-room.broadcast(message)        // to all
-room.sendTo(connectionId, msg) // to one
-room.presence                  // metadata snapshot
+room.id;
+room.size;
+room.join(connection);
+room.leave(connection);
+room.broadcast(message); // to all
+room.sendTo(connectionId, msg); // to one
+room.presence; // metadata snapshot
 ```
 
 Rooms can be created on demand or named explicitly:

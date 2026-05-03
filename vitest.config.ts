@@ -40,12 +40,7 @@ export default defineConfig({
         'src/assets/AssetManager.ts',
         'src/input/ActionMap.ts',
       ],
-      exclude: [
-        'src/**/*.test.ts',
-        'src/**/*.spec.ts',
-        'src/**/index.ts',
-        'src/**/*.d.ts',
-      ],
+      exclude: ['src/**/*.test.ts', 'src/**/*.spec.ts', 'src/**/index.ts', 'src/**/*.d.ts'],
       thresholds: {
         lines: 70,
         functions: 70,

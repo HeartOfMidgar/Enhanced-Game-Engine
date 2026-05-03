@@ -24,10 +24,15 @@ export const audio: Demo = {
     wrap.appendChild(button);
 
     const controls = document.createElement('div');
-    controls.style.cssText = 'display:none;flex-direction:column;gap:10px;width:100%;max-width:360px;';
+    controls.style.cssText =
+      'display:none;flex-direction:column;gap:10px;width:100%;max-width:360px;';
     wrap.appendChild(controls);
 
-    function makeSlider(label: string, initial: number, onChange: (v: number) => void): HTMLDivElement {
+    function makeSlider(
+      label: string,
+      initial: number,
+      onChange: (v: number) => void,
+    ): HTMLDivElement {
       const row = document.createElement('div');
       row.innerHTML = `<label style="display:flex;justify-content:space-between;">${label}<span class="value">${initial.toFixed(2)}</span></label>`;
       const slider = document.createElement('input');
@@ -65,15 +70,9 @@ export const audio: Demo = {
       button.style.display = 'none';
       controls.style.display = 'flex';
 
-      controls.appendChild(
-        makeSlider('Master', 1, (v) => mgr?.setVolume('master', v)),
-      );
-      controls.appendChild(
-        makeSlider('Music', 0.6, (v) => mgr?.setVolume('music', v)),
-      );
-      controls.appendChild(
-        makeSlider('SFX', 0.8, (v) => mgr?.setVolume('sfx', v)),
-      );
+      controls.appendChild(makeSlider('Master', 1, (v) => mgr?.setVolume('master', v)));
+      controls.appendChild(makeSlider('Music', 0.6, (v) => mgr?.setVolume('music', v)));
+      controls.appendChild(makeSlider('SFX', 0.8, (v) => mgr?.setVolume('sfx', v)));
       const btn = document.createElement('button');
       btn.textContent = '▶ Play beep';
       btn.style.cssText =

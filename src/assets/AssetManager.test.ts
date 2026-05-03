@@ -3,7 +3,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AssetManager, type AssetDescriptor, type AssetProgress } from './AssetManager.js';
 
 const json = (body: unknown): Response =>
-  new Response(JSON.stringify(body), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' },
+  });
 
 const text = (body: string): Response => new Response(body, { status: 200 });
 
@@ -15,7 +18,8 @@ describe('AssetManager', () => {
       const u = typeof url === 'string' ? url : url.toString();
       if (u.endsWith('/data.json')) return json({ ok: true });
       if (u.endsWith('/hello.txt')) return text('hello');
-      if (u.endsWith('/raw.bin')) return new Response(new Uint8Array([1, 2, 3, 4]), { status: 200 });
+      if (u.endsWith('/raw.bin'))
+        return new Response(new Uint8Array([1, 2, 3, 4]), { status: 200 });
       return new Response('not found', { status: 404 });
     }) as typeof fetch;
   });

@@ -91,7 +91,12 @@ export const physics: Demo = {
       update() {
         for (const { mesh, body } of cubes) {
           mesh.position.set(body.position.x, body.position.y, body.position.z);
-          mesh.quaternion.set(body.quaternion.x, body.quaternion.y, body.quaternion.z, body.quaternion.w);
+          mesh.quaternion.set(
+            body.quaternion.x,
+            body.quaternion.y,
+            body.quaternion.z,
+            body.quaternion.w,
+          );
         }
         orbit.controls.update();
       },

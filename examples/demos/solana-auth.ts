@@ -2,7 +2,6 @@ import { WalletVerifier, generateNonce } from '@engine/chain/solana/verifyWallet
 import bs58 from 'bs58';
 import nacl from 'tweetnacl';
 
-
 import { makeOverlay } from './overlay.js';
 
 import { type Demo } from './index.js';
@@ -59,7 +58,13 @@ export const solanaAuth: Demo = {
 
       // 2. Client constructs canonical message and signs it
       const data = { action: 'demo.greet', target: 'world' };
-      const message = JSON.stringify({ app: 'engine-demo', action: 'greet', nonce, timestamp: 0, data });
+      const message = JSON.stringify({
+        app: 'engine-demo',
+        action: 'greet',
+        nonce,
+        timestamp: 0,
+        data,
+      });
       const messageBytes = new TextEncoder().encode(message);
       const signatureBytes = nacl.sign.detached(messageBytes, keyPair.secretKey);
       const signatureBase64 = btoa(String.fromCharCode(...signatureBytes));
@@ -83,7 +88,9 @@ export const solanaAuth: Demo = {
         signature: signatureBase64,
         data,
       });
-      log(`Replay attempt: ${replay ? '✗ unexpectedly accepted' : '✓ rejected (nonce single-use)'}`);
+      log(
+        `Replay attempt: ${replay ? '✗ unexpectedly accepted' : '✓ rejected (nonce single-use)'}`,
+      );
     });
 
     const removeOverlay = makeOverlay(

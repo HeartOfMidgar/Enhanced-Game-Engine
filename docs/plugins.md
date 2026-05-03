@@ -40,7 +40,9 @@ export class TimerPlugin implements Plugin {
     engine.systems.register({
       name: 'timer-tick',
       priority: Priority.Logic,
-      update(dt) { /* ... */ },
+      update(dt) {
+        /* ... */
+      },
     });
   }
 }
@@ -66,15 +68,15 @@ are nominal — two tokens with the same name are still distinct types. Built-in
 tokens live on `ServiceTokens`:
 
 ```ts
-ServiceTokens.Engine
-ServiceTokens.World
-ServiceTokens.Renderer
-ServiceTokens.Physics
-ServiceTokens.Input
-ServiceTokens.Audio
-ServiceTokens.Assets
-ServiceTokens.Time
-ServiceTokens.Events
+ServiceTokens.Engine;
+ServiceTokens.World;
+ServiceTokens.Renderer;
+ServiceTokens.Physics;
+ServiceTokens.Input;
+ServiceTokens.Audio;
+ServiceTokens.Assets;
+ServiceTokens.Time;
+ServiceTokens.Events;
 ```
 
 ## DebugPanel

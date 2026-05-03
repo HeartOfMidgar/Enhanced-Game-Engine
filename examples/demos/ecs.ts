@@ -4,13 +4,7 @@ import { defineQuery } from '@engine/core/World.js';
 import { Transform } from '@engine/render/components.js';
 import { Renderer } from '@engine/render/Renderer.js';
 import { RenderSystem } from '@engine/render/RenderSystem.js';
-import {
-  AmbientLight,
-  BoxGeometry,
-  DirectionalLight,
-  Mesh,
-  MeshStandardMaterial,
-} from 'three';
+import { AmbientLight, BoxGeometry, DirectionalLight, Mesh, MeshStandardMaterial } from 'three';
 
 import { makeOverlay } from './overlay.js';
 import { attachOrbit, attachStatsHud } from './scene-hud.js';
@@ -61,7 +55,8 @@ export const ecs: Demo = {
       update(dt) {
         const eids = transformQuery(engine.world.raw);
         for (const eid of eids) {
-          Transform.y[eid] = (Transform.y[eid] ?? 0) + Math.sin((eid + engine.time.elapsed * 2)) * dt * 0.6;
+          Transform.y[eid] =
+            (Transform.y[eid] ?? 0) + Math.sin(eid + engine.time.elapsed * 2) * dt * 0.6;
         }
       },
     });

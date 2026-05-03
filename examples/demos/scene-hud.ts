@@ -20,7 +20,10 @@ export interface OrbitOptions {
   maxDistance?: number;
 }
 
-export function attachOrbit(renderer: Renderer, options: OrbitOptions = {}): {
+export function attachOrbit(
+  renderer: Renderer,
+  options: OrbitOptions = {},
+): {
   controls: OrbitControls;
   dispose: () => void;
 } {

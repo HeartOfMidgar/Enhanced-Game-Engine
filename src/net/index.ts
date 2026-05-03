@@ -16,12 +16,7 @@ export {
   type ProtocolOptions,
   type AnyProtocol,
 } from './protocol.js';
-export {
-  RateLimiter,
-  getClientIP,
-  type RateLimitConfig,
-  type CheckResult,
-} from './rateLimit.js';
+export { RateLimiter, getClientIP, type RateLimitConfig, type CheckResult } from './rateLimit.js';
 export { Room, type RoomEventMap } from './Room.js';
 export {
   WSGateway,

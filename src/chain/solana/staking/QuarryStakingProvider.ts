@@ -60,9 +60,19 @@ export interface QuarryStakingConfig {
 // so we use `unknown` shapes here to avoid hard typed dependencies. The
 // runtime code performs the necessary structural calls.
 interface QuarrySdks {
-  QuarrySDK: { load: (args: { provider: unknown }) => { mine: { loadRewarderWrapper: (rewarder: PublicKey) => Promise<unknown> } } };
+  QuarrySDK: {
+    load: (args: { provider: unknown }) => {
+      mine: { loadRewarderWrapper: (rewarder: PublicKey) => Promise<unknown> };
+    };
+  };
   SolanaProvider: { init: (args: { connection: Connection; wallet: unknown }) => unknown };
-  Token: { fromMint: (mint: PublicKey, decimals: number, info: { name: string; symbol: string }) => unknown };
+  Token: {
+    fromMint: (
+      mint: PublicKey,
+      decimals: number,
+      info: { name: string; symbol: string },
+    ) => unknown;
+  };
   TokenAmount: new (token: unknown, amount: string) => unknown;
 }
 
@@ -73,11 +83,18 @@ async function loadQuarrySDKs(): Promise<QuarrySdks> {
   cachedSdks = (async () => {
     try {
       // @ts-expect-error - optional peer dependency, may not be installed
-      const quarry = (await import('@quarryprotocol/quarry-sdk')) as { QuarrySDK: QuarrySdks['QuarrySDK'] };
+      const quarry = (await import('@quarryprotocol/quarry-sdk')) as {
+        QuarrySDK: QuarrySdks['QuarrySDK'];
+      };
       // @ts-expect-error - optional peer dependency, may not be installed
-      const contrib = (await import('@saberhq/solana-contrib')) as { SolanaProvider: QuarrySdks['SolanaProvider'] };
+      const contrib = (await import('@saberhq/solana-contrib')) as {
+        SolanaProvider: QuarrySdks['SolanaProvider'];
+      };
       // @ts-expect-error - optional peer dependency, may not be installed
-      const tokenUtils = (await import('@saberhq/token-utils')) as { Token: QuarrySdks['Token']; TokenAmount: QuarrySdks['TokenAmount'] };
+      const tokenUtils = (await import('@saberhq/token-utils')) as {
+        Token: QuarrySdks['Token'];
+        TokenAmount: QuarrySdks['TokenAmount'];
+      };
       return {
         QuarrySDK: quarry.QuarrySDK,
         SolanaProvider: contrib.SolanaProvider,
@@ -140,9 +157,8 @@ export class QuarryStakingProvider implements StakingProvider {
   }
 
   async buildStakeTx(walletAddress: string, amount: number): Promise<TxBuildResult> {
-    const { sdks, view, blockhash, lastValidBlockHeight, userPubkey } = await this.beginBuild(
-      walletAddress,
-    );
+    const { sdks, view, blockhash, lastValidBlockHeight, userPubkey } =
+      await this.beginBuild(walletAddress);
     const tx = new Transaction();
     tx.add(this.memo(`${this.app}:stake:${amount}`, userPubkey));
 
@@ -154,29 +170,47 @@ export class QuarryStakingProvider implements StakingProvider {
       tx.add(...pendingMiner.tx.instructions);
     }
 
-    const stakeAmount = new sdks.TokenAmount(view.token, toRawAmount(amount, this.decimals).toString());
+    const stakeAmount = new sdks.TokenAmount(
+      view.token,
+      toRawAmount(amount, this.decimals).toString(),
+    );
     const stakeTx = await (view.minerActions as MinerActionsShape).stake(stakeAmount);
     tx.add(...stakeTx.instructions);
 
-    return this.finalizeTx(tx, userPubkey, blockhash, lastValidBlockHeight, `Stake ${amount} ${this.symbol}`);
+    return this.finalizeTx(
+      tx,
+      userPubkey,
+      blockhash,
+      lastValidBlockHeight,
+      `Stake ${amount} ${this.symbol}`,
+    );
   }
 
   async buildUnstakeTx(walletAddress: string, amount: number): Promise<TxBuildResult> {
-    const { sdks, view, blockhash, lastValidBlockHeight, userPubkey } = await this.beginBuild(
-      walletAddress,
-    );
+    const { sdks, view, blockhash, lastValidBlockHeight, userPubkey } =
+      await this.beginBuild(walletAddress);
     const tx = new Transaction();
     tx.add(this.memo(`${this.app}:unstake:${amount}`, userPubkey));
 
-    const unstakeAmount = new sdks.TokenAmount(view.token, toRawAmount(amount, this.decimals).toString());
+    const unstakeAmount = new sdks.TokenAmount(
+      view.token,
+      toRawAmount(amount, this.decimals).toString(),
+    );
     const withdrawTx = await (view.minerActions as MinerActionsShape).withdraw(unstakeAmount);
     tx.add(...withdrawTx.instructions);
 
-    return this.finalizeTx(tx, userPubkey, blockhash, lastValidBlockHeight, `Unstake ${amount} ${this.symbol}`);
+    return this.finalizeTx(
+      tx,
+      userPubkey,
+      blockhash,
+      lastValidBlockHeight,
+      `Unstake ${amount} ${this.symbol}`,
+    );
   }
 
   async buildClaimTx(walletAddress: string): Promise<TxBuildResult & { estimatedReward?: number }> {
-    const { view, blockhash, lastValidBlockHeight, userPubkey } = await this.beginBuild(walletAddress);
+    const { view, blockhash, lastValidBlockHeight, userPubkey } =
+      await this.beginBuild(walletAddress);
     const info = await this.getUserStakeInfo(walletAddress);
     const tx = new Transaction();
     tx.add(this.memo(`${this.app}:claim`, userPubkey));
@@ -278,7 +312,8 @@ export class QuarryStakingProvider implements StakingProvider {
     const sdks = await this.sdkPromise;
     const userPubkey = new PublicKey(walletAddress);
     const view = await this.loadView(userPubkey);
-    const { blockhash, lastValidBlockHeight } = await this.connection.getLatestBlockhash('confirmed');
+    const { blockhash, lastValidBlockHeight } =
+      await this.connection.getLatestBlockhash('confirmed');
     return { sdks, view, blockhash, lastValidBlockHeight, userPubkey };
   }
 
@@ -297,7 +332,9 @@ export class QuarryStakingProvider implements StakingProvider {
       name: this.name,
       symbol: this.symbol,
     });
-    const rewarderWrapper = (await sdk.mine.loadRewarderWrapper(this.rewarder)) as RewarderWrapperShape;
+    const rewarderWrapper = (await sdk.mine.loadRewarderWrapper(
+      this.rewarder,
+    )) as RewarderWrapperShape;
     const quarry = (await rewarderWrapper.getQuarry(token)) as QuarryShape;
     const minerActions = (await quarry.getMinerActions(userPubkey)) as MinerActionsShape;
     return { token, rewarder: rewarderWrapper, quarry, minerActions };
@@ -330,7 +367,9 @@ interface MinerActionsShape {
 
 interface QuarryShape {
   getMinerAddress(pk: PublicKey): Promise<PublicKey>;
-  createMiner(opts: { authority: PublicKey }): Promise<{ tx: { instructions: TransactionInstruction[] } }>;
+  createMiner(opts: {
+    authority: PublicKey;
+  }): Promise<{ tx: { instructions: TransactionInstruction[] } }>;
   getMiner(pk: PublicKey): Promise<unknown>;
   getMinerActions(pk: PublicKey): Promise<MinerActionsShape>;
   quarryData: {

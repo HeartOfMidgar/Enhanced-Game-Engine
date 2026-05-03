@@ -1,4 +1,3 @@
-
 import { NetClient } from '@engine/net/NetClient.js';
 import { Protocol } from '@engine/net/protocol.js';
 import { z } from 'zod';

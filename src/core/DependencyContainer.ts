@@ -90,9 +90,7 @@ export class DependencyContainer {
   }
 
   has<T>(token: Token<T>): boolean {
-    return (
-      this.registrations.has(token as Token<unknown>) || (this.parent?.has(token) ?? false)
-    );
+    return this.registrations.has(token as Token<unknown>) || (this.parent?.has(token) ?? false);
   }
 
   /** Resolve every dependency tagged with the given string. Includes parent. */

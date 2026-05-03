@@ -53,5 +53,9 @@ export interface StakingProvider {
   /** Aggregate protocol stats (totalStaked etc.). */
   getStats(): Promise<StakingStats | null>;
   /** Verify that a stake transaction was confirmed on-chain. */
-  verifyStakeTx(signature: string, walletAddress: string, expectedAmount: number): Promise<StakeVerification>;
+  verifyStakeTx(
+    signature: string,
+    walletAddress: string,
+    expectedAmount: number,
+  ): Promise<StakeVerification>;
 }

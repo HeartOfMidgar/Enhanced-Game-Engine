@@ -32,7 +32,9 @@ export class NetClient {
   readonly events = new EventEmitter<NetClientEventMap>();
 
   private socket?: WebSocket;
-  private readonly options: Required<Omit<NetClientOptions, 'protocol'>> & { protocol: AnyProtocol };
+  private readonly options: Required<Omit<NetClientOptions, 'protocol'>> & {
+    protocol: AnyProtocol;
+  };
   private reconnectTimer?: ReturnType<typeof setTimeout>;
   private heartbeatTimer?: ReturnType<typeof setInterval>;
   private intentionalClose = false;

@@ -51,7 +51,8 @@ export class AudioManager {
             (window as unknown as { webkitAudioContext?: typeof AudioContext })
               .webkitAudioContext)) ||
         undefined;
-      if (!Ctor) throw new Error('AudioManager: AudioContext is not available in this environment.');
+      if (!Ctor)
+        throw new Error('AudioManager: AudioContext is not available in this environment.');
       this.context = new Ctor();
     }
 
@@ -92,12 +93,9 @@ export class AudioManager {
 
   /** Play a previously loaded buffer or buffer reference. */
   play(keyOrBuffer: string | AudioBuffer, options: PlayOptions = {}): PlayHandle {
-    const buffer =
-      typeof keyOrBuffer === 'string' ? this.buffers.get(keyOrBuffer) : keyOrBuffer;
+    const buffer = typeof keyOrBuffer === 'string' ? this.buffers.get(keyOrBuffer) : keyOrBuffer;
     if (!buffer) {
-      throw new Error(
-        `AudioManager.play: no buffer registered for "${String(keyOrBuffer)}".`,
-      );
+      throw new Error(`AudioManager.play: no buffer registered for "${String(keyOrBuffer)}".`);
     }
 
     const source = this.context.createBufferSource();

@@ -23,9 +23,7 @@ export const Hex = (length: number): ZodSchema<string> =>
 export const Sha256Hex = Hex(64);
 
 /** UUID v4-ish (loose validator). */
-export const UuidLike = z
-  .string()
-  .regex(/^[0-9a-fA-F-]{8,64}$/, 'Invalid id');
+export const UuidLike = z.string().regex(/^[0-9a-fA-F-]{8,64}$/, 'Invalid id');
 
 // ---------------------------------------------------------------------------
 // Standard envelope messages
@@ -89,9 +87,7 @@ export interface ProtocolOptions<TGame extends ZodTypeAny | undefined = undefine
   game?: TGame;
 }
 
-export type ParseResult<T> =
-  | { ok: true; data: T }
-  | { ok: false; error: string };
+export type ParseResult<T> = { ok: true; data: T } | { ok: false; error: string };
 
 /**
  * Bundles control messages with game-specific messages and exposes a single
@@ -104,7 +100,9 @@ export class Protocol<TGame extends ZodTypeAny | undefined = undefined> {
     this.game = options.game;
   }
 
-  parse(raw: unknown): ParseResult<ControlMessage | (TGame extends ZodTypeAny ? z.infer<TGame> : never)> {
+  parse(
+    raw: unknown,
+  ): ParseResult<ControlMessage | (TGame extends ZodTypeAny ? z.infer<TGame> : never)> {
     let data = raw;
     if (typeof data === 'string') {
       try {

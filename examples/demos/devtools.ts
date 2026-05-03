@@ -3,13 +3,7 @@ import { Priority, type System } from '@engine/core/System.js';
 import { DebugPanel } from '@engine/devtools/DebugPanel.js';
 import { Renderer } from '@engine/render/Renderer.js';
 import { RenderSystem } from '@engine/render/RenderSystem.js';
-import {
-  AmbientLight,
-  BoxGeometry,
-  DirectionalLight,
-  Mesh,
-  MeshStandardMaterial,
-} from 'three';
+import { AmbientLight, BoxGeometry, DirectionalLight, Mesh, MeshStandardMaterial } from 'three';
 
 import { makeOverlay } from './overlay.js';
 import { attachOrbit } from './scene-hud.js';

@@ -5,12 +5,7 @@ import { WebSocketServer, type WebSocket as WSConnection, type ServerOptions } f
 
 import { EventEmitter } from '../core/EventEmitter.js';
 
-import {
-  Protocol,
-  type ParseResult,
-  type ControlMessage,
-  type AnyProtocol,
-} from './protocol.js';
+import { Protocol, type ParseResult, type ControlMessage, type AnyProtocol } from './protocol.js';
 import { RateLimiter, getClientIP, type RateLimitConfig } from './rateLimit.js';
 import { Room } from './Room.js';
 
@@ -77,8 +72,7 @@ export class WSGateway {
     this.wss = new WebSocketServer(wsOptions);
     this.protocol = options.protocol ?? new Protocol();
     this.limiter = new RateLimiter(options.rateLimit);
-    this.rateLimitKeyFn =
-      options.rateLimitKey ?? ((req) => getClientIP(req.headers, req.socket));
+    this.rateLimitKeyFn = options.rateLimitKey ?? ((req) => getClientIP(req.headers, req.socket));
     this.heartbeatMs = options.heartbeatMs ?? 30_000;
 
     this.wss.on('connection', (socket, req) => this.onConnection(socket, req));

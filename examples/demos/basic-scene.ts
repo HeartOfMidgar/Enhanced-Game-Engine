@@ -88,9 +88,21 @@ export const basicScene: Demo = {
         const t = engine.time.elapsed;
         hero.rotation.y += dt * 0.6;
         hero.rotation.x += dt * 0.3;
-        sat1.position.set(Math.cos(t * 0.9) * 2.2, 0.6 + Math.sin(t * 1.4) * 0.3, Math.sin(t * 0.9) * 2.2);
-        sat2.position.set(Math.cos(-t * 0.7) * 2.6, -0.4 + Math.cos(t * 1.1) * 0.4, Math.sin(-t * 0.7) * 2.6);
-        sat3.position.set(Math.cos(t * 1.3 + 1) * 1.6, Math.sin(t * 1.5) * 0.8, Math.sin(t * 1.3 + 1) * 1.6);
+        sat1.position.set(
+          Math.cos(t * 0.9) * 2.2,
+          0.6 + Math.sin(t * 1.4) * 0.3,
+          Math.sin(t * 0.9) * 2.2,
+        );
+        sat2.position.set(
+          Math.cos(-t * 0.7) * 2.6,
+          -0.4 + Math.cos(t * 1.1) * 0.4,
+          Math.sin(-t * 0.7) * 2.6,
+        );
+        sat3.position.set(
+          Math.cos(t * 1.3 + 1) * 1.6,
+          Math.sin(t * 1.5) * 0.8,
+          Math.sin(t * 1.3 + 1) * 1.6,
+        );
         sat1.rotation.y += dt * 1.4;
         sat2.rotation.x += dt * 1.1;
         sat3.rotation.y -= dt * 0.9;

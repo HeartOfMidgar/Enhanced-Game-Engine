@@ -208,11 +208,13 @@ export class DebugPanel implements Plugin {
       // bitecs doesn't expose a count directly. We take a best-effort
       // estimate via the EID counter on the world (internal-but-stable).
       const world = engine.world.raw as unknown as { eidCounter?: number };
-      const count =
-        typeof world.eidCounter === 'number' ? world.eidCounter : '(unknown)';
+      const count = typeof world.eidCounter === 'number' ? world.eidCounter : '(unknown)';
       const components = engine.types.listComponents();
       const componentRows = components
-        .map((c) => `<li>${escapeHtml(c.name)}${c.category ? ` <span style="color:#81a1c1">(${escapeHtml(c.category)})</span>` : ''}</li>`)
+        .map(
+          (c) =>
+            `<li>${escapeHtml(c.name)}${c.category ? ` <span style="color:#81a1c1">(${escapeHtml(c.category)})</span>` : ''}</li>`,
+        )
         .join('');
       this.body.innerHTML = `
         <div>Entities: <b>${count}</b></div>
@@ -258,7 +260,7 @@ export class DebugPanel implements Plugin {
     ctx.beginPath();
     for (let i = 0; i < fpsData.length; i += 1) {
       const x = (i / fpsData.length) * w;
-      const y = h - (Math.min((fpsData[i] ?? 0), max) / max) * h;
+      const y = h - (Math.min(fpsData[i] ?? 0, max) / max) * h;
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     }
@@ -283,7 +285,9 @@ function escapeHtml(s: string): string {
     .replaceAll('"', '&quot;');
 }
 
-function detectCycles(systems: ReadonlyArray<{ name: string; dependencies?: readonly string[] }>): string[][] {
+function detectCycles(
+  systems: ReadonlyArray<{ name: string; dependencies?: readonly string[] }>,
+): string[][] {
   const cycles: string[][] = [];
   const graph = new Map<string, readonly string[]>();
   for (const s of systems) graph.set(s.name, s.dependencies ?? []);

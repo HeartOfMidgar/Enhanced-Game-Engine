@@ -94,8 +94,14 @@ export class SystemManager {
   }
 
   /** Read-only telemetry snapshot keyed by system name. */
-  telemetry(): Record<string, { priority: number; enabled: boolean; updateMs: number; fixedMs: number }> {
-    const out: Record<string, { priority: number; enabled: boolean; updateMs: number; fixedMs: number }> = {};
+  telemetry(): Record<
+    string,
+    { priority: number; enabled: boolean; updateMs: number; fixedMs: number }
+  > {
+    const out: Record<
+      string,
+      { priority: number; enabled: boolean; updateMs: number; fixedMs: number }
+    > = {};
     for (const [name, e] of this.entries) {
       out[name] = {
         priority: e.priority,
@@ -114,7 +120,9 @@ export class SystemManager {
       try {
         const r = entry.system.init?.(this.engine);
         if (r instanceof Promise) {
-          r.catch((err) => console.error(`[SystemManager] async init() of "${entry.name}" rejected:`, err));
+          r.catch((err) =>
+            console.error(`[SystemManager] async init() of "${entry.name}" rejected:`, err),
+          );
         }
         entry.initialized = true;
       } catch (err) {

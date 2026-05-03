@@ -65,7 +65,7 @@ app.post('/auth/login', (req, res) => {
 ### Client
 
 ```ts
-const { nonce } = await fetch('/auth/nonce').then(r => r.json());
+const { nonce } = await fetch('/auth/nonce').then((r) => r.json());
 const message = `login:${wallet.publicKey.toBase58()}:${nonce}`;
 const signature = await wallet.signMessage(new TextEncoder().encode(message));
 
@@ -107,7 +107,7 @@ import { toSolanaWalletConnectors } from '@privy-io/react-auth/solana';
   }}
 >
   <App />
-</PrivyProvider>
+</PrivyProvider>;
 ```
 
 ```ts
@@ -136,8 +136,8 @@ import { PublicKey } from '@solana/web3.js';
 const gate = new TokenGate({
   connection,
   mint: new PublicKey('YOUR_MINT'),
-  minBalance: 1,           // raw or human-readable, see decimals below
-  decimals: 9,             // optional; converts minBalance from human → raw
+  minBalance: 1, // raw or human-readable, see decimals below
+  decimals: 9, // optional; converts minBalance from human → raw
 });
 
 const ok = await gate.holds(new PublicKey(walletAddress));
@@ -160,8 +160,8 @@ const sink = new SplRewardSink({
 
 const sig = await sink.send({
   to: new PublicKey(playerAddress),
-  amount: 100,             // human-readable; converted with decimals
-  memo: 'reward:level-3',  // optional memo program note
+  amount: 100, // human-readable; converted with decimals
+  memo: 'reward:level-3', // optional memo program note
 });
 ```
 
@@ -233,14 +233,14 @@ The engine never auto-reads `process.env`; constructors take everything
 explicitly. The example server reads its config from `.env` (see
 [`.env.example`](../.env.example)) and forwards it to constructors.
 
-| Variable                           | Purpose                                    |
-| ---------------------------------- | ------------------------------------------ |
-| `SOLANA_RPC_URL`                   | RPC endpoint                               |
-| `SOLANA_REWARDS_KEYPAIR`           | base58 secret for `SplRewardSink`          |
-| `TOKEN_GATE_MINT`                  | SPL mint for `TokenGate`                   |
-| `TOKEN_GATE_MIN_BALANCE`           | minimum raw balance                        |
-| `QUARRY_REWARDER_ADDRESS`          | Quarry rewarder pubkey (optional add-on)   |
-| `QUARRY_STAKE_MINT`                | stake mint pubkey (optional add-on)        |
+| Variable                  | Purpose                                  |
+| ------------------------- | ---------------------------------------- |
+| `SOLANA_RPC_URL`          | RPC endpoint                             |
+| `SOLANA_REWARDS_KEYPAIR`  | base58 secret for `SplRewardSink`        |
+| `TOKEN_GATE_MINT`         | SPL mint for `TokenGate`                 |
+| `TOKEN_GATE_MIN_BALANCE`  | minimum raw balance                      |
+| `QUARRY_REWARDER_ADDRESS` | Quarry rewarder pubkey (optional add-on) |
+| `QUARRY_STAKE_MINT`       | stake mint pubkey (optional add-on)      |
 
 ## Errors
 

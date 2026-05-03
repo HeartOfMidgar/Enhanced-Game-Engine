@@ -1,0 +1,22 @@
+# Normalize all text files to LF in the repo, regardless of platform.
+# Windows working copies will still show CRLF locally if core.autocrlf=true,
+# but the repository stores LF so CI (Linux) and prettier agree.
+
+* text=auto eol=lf
+
+# Treat known binaries explicitly to avoid any chance of corruption.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary
+*.otf  binary
+*.mp3  binary
+*.ogg  binary
+*.wav  binary
+*.glb  binary
+*.gltf binary

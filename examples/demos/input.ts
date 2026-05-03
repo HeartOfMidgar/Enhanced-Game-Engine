@@ -58,8 +58,10 @@ export const input: Demo = {
       name: 'Movement',
       update(dt) {
         const speed = 4;
-        const dx = (inputMgr.actions.value('moveRight') || 0) - (inputMgr.actions.value('moveLeft') || 0);
-        const dy = (inputMgr.actions.value('moveDown') || 0) - (inputMgr.actions.value('moveUp') || 0);
+        const dx =
+          (inputMgr.actions.value('moveRight') || 0) - (inputMgr.actions.value('moveLeft') || 0);
+        const dy =
+          (inputMgr.actions.value('moveDown') || 0) - (inputMgr.actions.value('moveUp') || 0);
         cube.position.x += dx * speed * dt;
         cube.position.z += dy * speed * dt;
         if (inputMgr.actions.pressed('jump')) cube.position.y = 2;
