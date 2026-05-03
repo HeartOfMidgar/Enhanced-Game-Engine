@@ -1,0 +1,15 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/index.ts"],
+  "out": "docs/api",
+  "tsconfig": "./tsconfig.build.json",
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "readme": "./README.md",
+  "name": "game-engine-enhanced",
+  "githubPages": false,
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  }
+}
